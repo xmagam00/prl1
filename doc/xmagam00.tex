@@ -63,10 +63,25 @@ Následne sa realizuje nekonečný cyklus. V tomto cykle sa postupne realizuje n
 
 Treba podotknúť akým spôsobom sa pracuje s premennou $"my_id"$, ktorá obsahuje jedinečné číslo pre každý procesor. Hodnota 0 predstavuje koreň stromu, hodnoty 1 - ((procs + 1) / 2) - 2 sú hodnoty nelistových procesorov a hodnoty ((procs + 1) / 2) - 1 až počet procesorov predstavuje listové procestory.
 
+Pre každý nelistový procesor sa zistí, od ktorých procesorv má získať hodnoty. Ten získa obe hodnoty a menšiu z nich si uloží a prepošle svojmu rodičovu. Väčšiu hodnotu pošle späť svojmu potomkovi, od ktorého ju održal a procesoru, od ktorého získal menšiu hodnotu pošle hodnotu "-1" na ukončenie. 
 
 
 
 Na koniec sa pre koreň a pre hodnoty > 0 tieto hodnoty vypisujú na výstup a pošle sa hodnota "-1" nelistovému procesoru, od ktorého obdržal hodnotu. Až nakoniec sám obdŕži hodnotu -1 => všetky ostatné procesory sú ukončené a sám sa ukončí.
+
+
+\section{Komunikačný protokol}
+Na nasledujúcom obrázku je zobrazený komunikačný protokol:
+
+
+
+
+
+
+\section{Experimenty}
+
+
+\section{Záver}
 
 \end{document}
 
