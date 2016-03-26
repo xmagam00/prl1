@@ -30,152 +30,43 @@
 
 
 
-\title{Implementácia algoritmu Minimum Extraction sort}
-\date{Marec 31 2016}
-\author{Martin Maga (xmagam00)}
-\maketitle
-
 \section{Teoretické rozobratie algoritmu}
-Algoritmus pracuje nad binárním stromem, v jehož listech jsou na počátku uloženy řazené hodnoty.
-Všechny nelistové uzly obsahují procesor, který je schopen porovnat hodnoty potomků a menší z nich
-uložit do svého uzlu. Hodnota menšího z potomků se tedy posunuje stromem vzhůru, až dosáhne
-kořene – po (log n) + 1 krocích. Následně do kořenového uzlu postupují další nejnižší hodnoty – vždy
-ve dvou krocích – nejprve se hodnota dostane do kořene, a pak je z ní odstraněna do pole
-s výsledkem. Jde o binární strom, tzn. počet listů je vždy mocninou dvojky. Abychom mohli řadit i
-hodnoty, jejichž počet není mocninou dvojky, musíme si u zbývajících listů poznamenat, že jsou
-prázdné. U každého uzlu si tedy pamatujeme hodnotu, kterou obsahuje, a také proměnnou, ve které
-uchováváme (ne)prázdnost uzlu.
+Základná myšlienka algoritmu Minimum Extraction Sort je postavená nad binárnym vyváženým stromom. V listových uzloch(listoch) sú uložené hodnoty, ktoré sa majú zoradiť. Každý nelistový uzol obsahuje procesor. Tento procesor je schopný porovnať hodnoty jeho 2 potomkov a menšiu z nich uložiť do svojho uzlu. Keď sa predstavíme, že máme k dispozícíí viac než 1 procesor, tak tento procesor je realizovaný paralelne. Tieto hodnoty postupne postupujú nahor po binárnom strome až nakoniec dorazia do koreňa tohto binárneho stromu, presne po "LOG (N) + 1 krokoch". Celý procesor sa opakuje pre ďalšie nižšie hodnoty. Do koreňa sa ukladajú hodnoty vždy v 2 krokoch, najprv je hodnota uložená do koreňa(1.krok) a následne (2. krok) sa hodnota uloží do výstupné poľa, kde sú hodnoty zoradené.
 
-\section{Teoretická časová zložitosť}
-Nejmenší hodnota dosáhne kořene stromu po (log n) + 1 kroku. Následně je zbývajících n – 1 hodnot
-ze stromu „odstraněno“ v pořadí od nejmenší vždy po dvou krocích – prvním je doručení hodnoty do
-kořene, druhým je odstranění hodnoty z kořene a uložení do výsledného pole.
-Celkový počet kroků je tedy 2 * (n – 1) + (log n) + 1 = 2 * n + log n – 1. Dominantní složkou složitosti je
-n, jde tedy o algoritmus s lineární časovou složitostí.
+Treba zdôrazniť, že strom je binárny, to znamená, že počet listov je mocnina 2. Preto je nutné zabezpečiť, že počet nezoradených hodnôt na vstupe musí byť nutne mocnina 2. Toto obmedzenie sa obchádza, tak, že pokiaľ počet hodnôt nezodpovedá mocnine 2, zvyšný počet hodnôt sa doplní hodnotou, u ktorej sa zaručené, že sa nevyskutuje vo vstupnej nezoradenej množine (treba sa vždy korektne zamyslieť nad prípustnými hodnotami vstupnej množiny). Túto hodnotu uložíme do zostávajúcich uzlov a poznamenáme si, že uzol je prázdny, tj hodnota tohto uzlu sa nezoraďuje.
 
 
-\subsection{Problémy pri snímaní}
-V prípade snímania mydla sme po nanesení na prst museli mydlo jemne zotrieť, pretože snímač nebol opakovanie schopný zosnímať odtlačok. Čo sa týka druhého detergentu oleja, tak po nanesení bol odtlačok ihneď rozoznaný. Často sa vyskytla aj situácia pokiaľ osoba mala prst mastný, tak snímač skôr rozoznal odtlačok ako pri suchom a čistom prste. Rovnako sme narazili, že studené prsty ľudí, ktorí práve prišli z vonká bolo nasnímanie rýchlejšie ako ľudí, ktorí sa už nejaký čas nachádzali vo vnútri v teple.
+\section{Zložitosť algoritmu}
+\subsection{Časová zložitosť}
+Časová zložitosť tohto algoritmu je úzko spätá z priestorovou zložitosťou. Musíme si uvedomiť, že najmenšia hodnota v binárnom strome dosiahne koreň binárneho stromu po (log n) + 1 krokov. Keď hodnota dosiahne koreň treba potrebuje 2 kroky a to 1. krok pre uloženie hodnoty a 2. krok na uloženie hodnoty do výstupnej zoradenej množiny.
 
-Pri niektorých osobách sa nám nepodarilo získať niektoré odtlačky. Hlavne sa jednalo o staršie osoby z našej skupiny, ktorých papilárne línie neboli výrazné (mierne poničené), resp od ľudí, ktorí pracujú z chemických prostriedkami, ktoré spôsobujú poškodzovanie papilárnych línií.
+Následne sa n - 1 hodnôt zo stromu odstráni a to v takom poradí, že sa odstráni od najmenšieho a to po 2 krokoch, opäť sa jedná odoslanie hodnoty do koreňa (1.krok) a odstránenie hodnoty z koreňa a uloženie do výstupnej množiny (2.krok).
+
+Keď spojíme vyššie spomenuté kroky tak dostane nasledujúcu zložitosť: 2 * (n – 1) + (log n) + 1. Po zjednodušení dostávame: 2 * n + log n – 1, čo je celkový počet krokov pre "n" hodnôt. Dominantná zložka v tomto vzorci je "n" preto je časová zložitosť algoritmu : t(n) = "O(n)", teda lineárna.
+
+\subsection{Priestorová zložitosť}
+Priestorová časová zložitosť je závislá na použitej štruktúre v algoritme. V tomto algoritme používame binárny strom. Vieme ľahko určiť, že binárny strom potrebuje pre 8 hodnôt 8 uzlov. Keďźe tento strom je binárny každa z 2 hodnôt má 1 spoločného rodiča a ten rodič ďalšieho rodiča.
+Vieme spočítať, že na celkový počet úrovni(okrem listov) je log (n) (logaritmus má základ 2). Rovnako vieme, že binárny strom obsahuje na každej vyššej úrovni o polovicu menej procesor až na úrovni koreňa, ktorý logicky obsahuje 1 uzol. Celkovo keď zrátame pre 8 hodnôt celkový počet listov: 1. úroveň - obsahuje 8 uzlov(najnižšia), 2. úroveň - obsahuje 4 uzly 3. úroveň  - obsahuje 2 uzly 4. úroveň (najvyššia) - 1 uzlov. Celkovo obsahuje binárny strom pre zoradenie 8 hodnôt 15 procesorov. Pri skúmaní závislosti nad rôznym počet vstupných hodnôt dostávame priestorovú zložitosť: p(n) = 2 * n - 1. (Počet procesorov)
+\subsection{Celková cena algoritmu}
+Celková cena algoritmu je: c(n) = p(n) * t(n). Pre náš algoritmus dostávame hodnotu: c(n) = (2 * n - 1) * n = $n^2$ (pri zanedbaní nejakých hodnotôv). Celková cena riešenia je kvadratická, čo nie je optimálne. 
+
+\section{Implementácia}
+Pri implementácií algoritmu Minimum Extraction Sort bola použivá knižnica OpenMPI (https://www.open-mpi.org/) spolu s jazykom C. Táto knižnica umožňuje implementáciu algoritmov paralelne, pričom jednotlivé vytvorené procesory komunikujú prostredníctvom správ.
+
+Pri implementácií ako bolo spomenuté bol použitý jazyk C. Celý beh program sa spúšťa prostredníctvom bash skriptu "test.sh", ktorý obsahuje 2 parametre: 1. parameter obsahuje počet radených hodnôt, 2. parameter obsahuje počet procesorov, ktoré radia hodnoty. Tento skript zjednodušene preloží program "mes.c" a vytvorí súbor "numbers" prostredníctvom utility dd, ktorá náhodne vygeneruje čísla od 0 - 255. Následne sa spustí beh programu.
+
+Program mes.c paralelne vytvorí N procesorov. Každý procesor si pri vytvorení uchová svoje jedinečné číslo, s ktorým ďalej pracuje. Celý algoritmus je spustení z koreňa, teda z procesory s $my_id$ s hodnotou 0. Tento procesor načíta vstupný súbor "numbers" a jednotlivé hodnoty následne prepošle listových procesorom. Koreňový procesor postupne preposiela hodnoty procesorom s počiatočným indexom počtu precesorov až (($počet_procesorov$ + 1) / 2) - 1). V koreňom procesore sa po načítaní vstupného súboru a odoslaní načítaných hodnôt jednotlivým procesorom skontroluje, že zadaný počet hodnôt je mocninou 2, pokiaľ nie je tak je hodnota doplnená na najbližšiu mocninu 2. Zvyšným listovým procesorom je odoslaná hodnota "-1", čo značí, že hodnota je nepoužitá, tj nebude sa nachádzať vo výstupnej zoradenej postupnosti.
+
+Celý algoritmus pokračuje obdržaním hodnôt od koreňa stromu a jej uložením do pomocnej premennej.
+
+Následne sa realizuje nekonečný cyklus. V tomto cykle sa postupne realizuje nasledovné. Pre každý ne-koreňový a zároveň listový procesorv sa zistí od jeho rodiča(v závislosti od je $my_id$). Ten pošle hodnotu svojho čísla rodičovi a prijme hodnotu od rodiča. Pokiaľ nejaký uzol dostane od rodiča hodnotu "-1", znamená,  že svoju uloženú hodnotu poslal svojmu rodičovi a teda môže svoju činnosť skončiť, keďže je listový. Preto sa aj následné ukončí.
+
+Treba podotknúť akým spôsobom sa pracuje s premennou $"my_id"$, ktorá obsahuje jedinečné číslo pre každý procesor. Hodnota 0 predstavuje koreň stromu, hodnoty 1 - ((procs + 1) / 2) - 2 sú hodnoty nelistových procesorov a hodnoty ((procs + 1) / 2) - 1 až počet procesorov predstavuje listové procestory.
 
 
-\section{Vyhodnotenie odtlačkov prstov s olejom}
-V nasledujúcej kapitole pojednávame o otiskoch prstoch, na ktoré bol aplikovaný olej. Vybrali sme nasledujúce odtlačky prstov, na ktorých je najlepšie viditeľný vplyv oleja. Vplyv oleja je badateľný na papilárnych líniach, ktoré sú stenšené a viditelnejšie. Ako referenčný prst sme použili prostredník ľavej ruky.
 
-\begin{center}Odtlačky s olejom \end{center}
-\begin{figure}[h]
-  \centering
-  \begin{minipage}[b]{0.20\textwidth}
-    \scalebox{0.5}{\includegraphics[width=\textwidth]{img/44_L3_3_2.eps}}
-    
-  \end{minipage}
-  \hfill
-  \begin{minipage}[b]{0.20\textwidth}
-    \scalebox{0.5}{\includegraphics[width=\textwidth]{img/6_L3_3_2.eps}}
-    
-  \end{minipage}
-  \hfill
-  \begin{minipage}[b]{0.20\textwidth}
-    \scalebox{0.5}{\includegraphics[width=\textwidth]{img/12_L3_3_2.eps}}
-    
-  \end{minipage}
-  \hfill
-  \begin{minipage}[b]{0.20\textwidth}
-    \scalebox{0.5}{\includegraphics[width=\textwidth]{img/35_L3_3_2.eps}}
-    
-  \end{minipage}
-\end{figure}
-\begin{center}Odtlačky bez oleja \end{center}
-\begin{figure}[h]
-  \centering
-  \begin{minipage}[b]{0.2\textwidth}
-    \scalebox{0.6}{\includegraphics[width=\textwidth]{img/42_L3_3_1.eps}}
-    \label{Osoba 1}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[b]{0.2\textwidth}
-    \scalebox{0.5}{\includegraphics[width=\textwidth]{img/4_L3_3_2.eps}}
-    \label{Osoba 2}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[b]{0.2\textwidth}
-    \scalebox{0.5}{\includegraphics[width=\textwidth]{img/10_L3_3_2.eps}}
-    
-    \label{Osoba 3}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[b]{0.2\textwidth}
-    \scalebox{0.5}{\includegraphics[width=\textwidth]{img/33_L3_3_1.eps}}
-    \label{Osoba 4}
-  \end{minipage}
-\end{figure}
 
-Odtlačky prstu na 1. obrázku zľava sú od ženy vo veku 24 rokov povolaním asistent pedagóga.
-Odtlačky prstu na 2. obrázku zľava sú od muža vo veku 20 rokov povolaním študent.
-Odtlačky prstu na 3. obrázku zľava sú od ženy vo veku 45 rokov povolaním robotník.
-Odtlačky prstu na 4. obrázku zľava sú od muža vo veku 50 rokov povolaním hasič.
-
-\section{Vyhodnotenie odtlačkov prstov s mydlom}
-V nasledujúcej kapitole pojednávame o odtlačkoch prstoch, na ktoré bolo aplikovaný mydlo. Vybrali sme nasledujúce odtlačky prstov, na ktorých je najlepšie viditeľný vplyv mydla. Vplyv mydla je oproti odtlačku bez neho badateľný tým, že papilárne línie sú širšie oproti bežnému odtlačku. Ako referenčný prst sme použili prostredník ľavej ruky.
-
-\begin{center}Odtlačky s mydlom \end{center}
-\begin{figure}[h]
-  \centering
-  \begin{minipage}[b]{0.20\textwidth}
-    \scalebox{0.5}{\includegraphics[width=\textwidth]{img/40_L3_3_1.eps}}
-    
-  \end{minipage}
-  \hfill
-  \begin{minipage}[b]{0.20\textwidth}
-    \scalebox{0.5}{\includegraphics[width=\textwidth]{img/14_L3_3_1.eps}}
-    
-  \end{minipage}
-  \hfill
-  \begin{minipage}[b]{0.20\textwidth}
-    \scalebox{0.5}{\includegraphics[width=\textwidth]{img/28_L3_3_1.eps}}
-    
-  \end{minipage}
-  \hfill
-  \begin{minipage}[b]{0.20\textwidth}
-    \scalebox{0.5}{\includegraphics[width=\textwidth]{img/46_L3_3_1.eps}}
-    
-  \end{minipage}
-\end{figure}
-\begin{center}Odtlačky bez mydla \end{center}
-\begin{figure}[h]
-  \centering
-  \begin{minipage}[b]{0.2\textwidth}
-    \scalebox{0.6}{\includegraphics[width=\textwidth]{img/39_L3_3_1.eps}}
-    \label{Osoba 1}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[b]{0.2\textwidth}
-    \scalebox{0.5}{\includegraphics[width=\textwidth]{img/13_L3_3_2.eps}}
-    \label{Osoba 2}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[b]{0.2\textwidth}
-    \scalebox{0.5}{\includegraphics[width=\textwidth]{img/27_L3_3_2.eps}}
-    
-    \label{Osoba 3}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[b]{0.2\textwidth}
-    \scalebox{0.5}{\includegraphics[width=\textwidth]{img/45_L3_3_1.eps}}
-    \label{Osoba 4}
-  \end{minipage}
-\end{figure}
-
-Odtlačky prstu na 1. obrázku zľava sú od muža vo veku 19 rokov povolaním elektrikár.
-Odtlačky prstu na 2. obrázku zľava sú od ženy vo veku 59 rokov povolaním dôchodca.
-Odtlačky prstu na 3. obrázku zľava sú od muž vo veku 59 rokov povolaním robotník.
-Odtlačky prstu na 4. obrázku zľava sú od ženy vo veku 12 rokov povolaním študent.
-
-\section{Záver}
-Záverom tejto práce by som rád zhrnul získané vedomosti o vplyvu detergentov na odtlačky prstov. V prvom rade treba spomenúť, že používaný typ senzoru a to prieťahový kapacitný senzor nie je vhodný na snímanie detergentov na prstoch. Je to dané tým, že pri snímaní odtlačku dochádza k prieťahu prstu cez senzor, čím sa vrsta detergenta mierne odstráni. 
- 
-Rovnako môžme skonštatovať, že zvolené detergenty mydlo a olej majú vplyv na odtlačky prstov. Olej spôsobuje, že papilárne línie sú užšie a výraznejšie pri zosnímaní odtlačku. Naproti tomu pri nanesení mydla boli papilárnej línie výrazne širšie. Zároveň bolo potrebné pred samotným snímaním mierne zotrieť mydlo z prstu, pretože snímač nebol schopný zosnímať odtlačok.
+Na koniec sa pre koreň a pre hodnoty > 0 tieto hodnoty vypisujú na výstup a pošle sa hodnota "-1" nelistovému procesoru, od ktorého obdržal hodnotu. Až nakoniec sám obdŕži hodnotu -1 => všetky ostatné procesory sú ukončené a sám sa ukončí.
 
 \end{document}
 
