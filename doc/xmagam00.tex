@@ -79,9 +79,31 @@ Na nasledujúcom obrázku je zobrazený komunikačný protokol:
 
 
 \section{Experimenty}
+Pre naše experimenty sme sa rozhodli overiť časovú zložiť. Ako bolo uvedené v kapitole "Časová zložitosť" sme odvodili, že časová zložitosť tohto algoritmu je lineárna. To znamená, že môžme predpokldať, že v závislosti vstupnej postupnej radených hôdnot dostaneme celkový čas radenia približne lineárny, to znamená, že na grafe uvidíme približne priamku. Pre overenie sme vykonali experiment nasledovne: Ako vstup sme postupne spúštali skript test nasledovne:
+\begin{itemize}
+\item test.sh 2 3
+\item test.sh 4 7
+\item test.sh 8 15
+\item test.sh 16 31
+\end{itemize}
+Algoritmus sme spúštali na serveri merlin(Linux merlin.fit.vutbr.cz 3.12.56 $x86_64 x86_64 x86_64$ GNU/Linux). Pre správnosť výsledkov sme každú konfiguráciu spustili 100x a výsledný čas som spriemeroval. Treba spomenúť, že nebolo možné overiť riešenie pre väčší počet hodnôt, keďže server merlin nedovoluje spustiť program s väčším počtu procesorov.
+
+Z implementačného hľadiska treba podotknúť, že meranie je realizované funkcou $"MPI_Wtime()"$, ktorá vracia počet sekúnd. Tento funkcia sa volá na začiatku a na konci pre koreňový procesor. Následne sa vypisuje rozdiel medzi koncovou a počiatočnou hodnotou.
+ \begin{figure}[h]
+
+\begin{center}
+\scalebox{0.8}{\includegraphics{img/mes.eps}}
+\caption{Grap časovej závislosti behu programu v ms od počtu vstupných hodnôt}
+\end{center}
+
+\end{figure}
+
+
+
 
 
 \section{Záver}
+Implementovali sme algoritmus Minimum Extraction Sort s knižnicou OpenMPI jazykom C. Rovnako sme odvodili teoretickú časovú, priestorovú a celkovú zložitosť algoritmu. Zistili sme, že algoritmus nie je pre paralelné riešenie optimálny. V sekcii "Implementácia" som vysvetlil svoje riešenie pre tento algoritmus. Celkový flow akým spôsobom sú dáta preposielané medzi jednotlivými procesormi je vysvetlený sekcii "Komunikačný protokol". Najdôležitejšou časťou celej dokumentácie je sekcia "Experimenty", v ktorej som overil svoje implementačné riešenie a zároveň potvrdil, že teoretická časová zložitosť odpovedá mojim experimentom.
 
 \end{document}
 

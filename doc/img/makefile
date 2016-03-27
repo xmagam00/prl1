@@ -1,7 +1,7 @@
 # vychozi obrazky
-SRC=snimac.jpg
+SRC=mes.png
 # pozadovany format pro LaTeX
-DEST=snimac.jpg
+DEST=mes.eps
 
 .SUFFIXES: .fig .eps .png .jpg
 

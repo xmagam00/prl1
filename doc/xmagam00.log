@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=latex 2015.10.11)  26 MAR 2016 21:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=latex 2015.10.11)  27 MAR 2016 00:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -541,23 +541,39 @@ a po-u-ºivá kniº-nica Ope-nMPI (https://www.open-
 LaTeX Warning: Command \v invalid in math mode on input line 58.
 
 Missing character: There is no £ in font cmr12!
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 67.
 [2]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 67.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 84.
+ (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 84.
+File: img/mes.eps Graphic file (type eps)
+ <img/mes.eps>
+Overfull \hbox (23.53044pt too wide) in paragraph at lines 91--100
+[]\T1/cmr/m/n/12 Z im-ple-men-ta£-ného h©a-diska treba po-dotknú´, ºe me-ra-nie
+ je re-a-li-zo-vané funk-cou $\OT1/cmr/m/n/12 "\OML/cmm/m/it/12 MPI[]time\OT1/c
+mr/m/n/12 ()"$\T1/cmr/m/n/12 ,
+ []
+
+[3]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 108.
+ [4]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 108.
  (./xmagam00.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 67.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 67.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 108.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 108.
 Package rerunfilecheck Info: File `xmagam00.out' has not changed.
-(rerunfilecheck)             Checksum: AD24437EF0FA43D26E08E3C6A67E820A;961.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 67.
+(rerunfilecheck)             Checksum: 0F84220AAFB48B49F48426C4C75F265C;1279.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 108.
  ) 
 Here is how much of TeX's memory you used:
- 9252 strings out of 493340
- 127785 string characters out of 6141407
- 207081 words of memory out of 5000000
- 12657 multiletter control sequences out of 15000+600000
+ 9284 strings out of 493340
+ 128235 string characters out of 6141407
+ 207514 words of memory out of 5000000
+ 12683 multiletter control sequences out of 15000+600000
  10228 words of font info for 28 fonts, out of 8000000 for 9000
  953 hyphenation exceptions out of 8191
- 29i,5n,31p,918b,340s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 29i,5n,31p,918b,341s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on xmagam00.dvi (2 pages, 13476 bytes).
+Output written on xmagam00.dvi (4 pages, 19868 bytes).

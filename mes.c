@@ -46,6 +46,8 @@ int main(int argc, char **argv)
     //get my proccessor of id       
     MPI_Comm_rank(MPI_COMM_WORLD, &my_id);       
     
+    MPI_Barrier(MPI_COMM_WORLD); 
+    double start = MPI_Wtime();
     //Am I Root node ?
     if (0 == my_id)
     { 
@@ -66,8 +68,8 @@ int main(int argc, char **argv)
             if (character == EOF) {
                 break;
             } 
-            printf("%d",character); 
-            putchar(' ');
+            //printf("%d",character); 
+            //putchar(' ');
             
             MPI_Send(&character, 1, MPI_INT, proc_count, 0, MPI_COMM_WORLD);
             proc_count += 1;
@@ -81,7 +83,7 @@ int main(int argc, char **argv)
 
             character = default_dd_value; 
             if ((proc_count + 1) != proc_num) {
-                putchar(' ');
+                //putchar(' ');
             }
             while(proc_count != proc_num){
                 MPI_Send(&character, 1, MPI_INT, proc_count, 0, MPI_COMM_WORLD);
@@ -90,7 +92,7 @@ int main(int argc, char **argv)
 
         }
         //put new line
-        putchar('\n');
+        //putchar('\n');
     }
     
     
@@ -102,7 +104,7 @@ int main(int argc, char **argv)
         if (my_id < get_proc_number(proc_num)){ 
             
             if ((my_id == 0) && (my_number >= 0)){
-                printf("%d\n",my_number);
+                //printf("%d\n",my_number);
                 my_number = default_dd_value;
             }
 
@@ -164,6 +166,11 @@ int main(int argc, char **argv)
         }
     }
     //its import to finish all proccesses
+    MPI_Barrier(MPI_COMM_WORLD);
+    double end = MPI_Wtime();
+    if (my_id == 0) {
+        printf("%f\n", (end - start)*1000);
+    }
     MPI_Finalize();
     //return message
     return EXIT_SUCCESS;
