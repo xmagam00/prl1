@@ -1,7 +1,7 @@
 # vychozi obrazky
-SRC=mes.png
+SRC=mes.png diagram.jpg
 # pozadovany format pro LaTeX
-DEST=mes.eps
+DEST=mes.eps diagram.eps
 
 .SUFFIXES: .fig .eps .png .jpg
 
